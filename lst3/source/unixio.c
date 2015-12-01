@@ -45,10 +45,15 @@ noreturn imageRead(FILE * fp)
     short i, size;
     object *mBlockAlloc();
 
+    //printf("sizeof(object)=%d\n", sizeof(object));
     ignore fr(fp, (char *) &symbols, sizeof(object));
+    printf("symbols=%d\n", symbols);
+
     i = 0;
 
+    //printf("sizeof(dummyObject)=%d\n", sizeof(dummyObject));
     while (fr(fp, (char *) &dummyObject, sizeof(dummyObject))) {
+        printf("%4d %4d %4d ", dummyObject.di << 1, dummyObject.cl, dummyObject.ds);
 	i = dummyObject.di;
 
 	if ((i < 0) || (i > ObjectTableMax))
@@ -62,12 +67,30 @@ noreturn imageRead(FILE * fp)
 	objectTable[i].size = size = dummyObject.ds;
 	if (size < 0)
 	    size = ((-size) + 1) / 2;
+    printf("%4d ", size);
 	if (size != 0) {
 	    objectTable[i].memory = mBlockAlloc((int) size);
-	    ignore fr(fp, (char *) objectTable[i].memory,
-		      sizeof(object) * (int) size);
+	    ignore fr(fp, (char *) objectTable[i].memory, sizeof(object) * (int) size);
+            if (dummyObject.ds > 0 && dummyObject.ds <= 16) {
+                //printf("(");
+                int j;
+                for(j = 0; j < dummyObject.ds; j += 1) {
+                    printf ("%4d ", objectTable[i].memory[j]);
+                }
+                //printf(")");
+            }
+            if (dummyObject.cl == 8 && dummyObject.ds < 0) {
+                printf("\"");
+                char *string = (char *)objectTable[i].memory;
+                int j;
+                for(j = 0; j < -dummyObject.ds - 1; j += 1) {
+                    printf ("%c", string[j]);
+                }
+                printf("\"");
+            }
 	} else
 	    objectTable[i].memory = (object *) 0;
+	printf("\n");
     }
 
     /* now restore ref counts, getting rid of unneeded junk */

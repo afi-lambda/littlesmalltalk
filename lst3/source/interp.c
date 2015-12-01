@@ -319,6 +319,11 @@ int maxsteps;
 		methodCache[i].cacheClass = methodClass;
 	    }
 
+            if (watching) {
+                object selector = basicAt(method, messageInMethod);
+                fprintf(stderr, "%d   %s\n", processStackTop(), charPtr(selector));
+            }
+
 	    if (watching && (basicAt(method, watchInMethod) != nilobj)) {
 		/* being watched, we send to method itself */
 		j = processStackTop() - returnPoint;

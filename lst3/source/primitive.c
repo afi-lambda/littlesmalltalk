@@ -124,6 +124,11 @@ object firstarg;
 	fprintf(stderr, "primitive 14 %d\n", firstarg);
 	break;
 
+    case 5:			/* object from table id */
+	if (isInteger(firstarg))
+	    returnedObject = firstarg >> 1;
+	break;
+
     case 8:			/* change return point - block return */
 	/* first get previous link pointer */
 	i = intValue(basicAt(processStack, linkPointer));
@@ -503,13 +508,13 @@ double firstarg;
 	returnedObject = newStString(buffer);
 	break;
 
-    case 2:			/* log */
-	returnedObject = newFloat(log(firstarg));
-	break;
+    //case 2:			/* log */
+	//returnedObject = newFloat(log(firstarg));
+	//break;
 
-    case 3:			/* exp */
-	returnedObject = newFloat(exp(firstarg));
-	break;
+    //case 3:			/* exp */
+	//returnedObject = newFloat(exp(firstarg));
+	//break;
 
     case 6:			/* integer part */
 	/* return two integers n and m such that */

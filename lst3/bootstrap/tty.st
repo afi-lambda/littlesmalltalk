@@ -98,7 +98,7 @@ Methods Smalltalk 'doit'
 ]
 Methods Scheduler 'get commands'
 	initialize	| string |
-		<2>.
+		"<2>."
 		string <- smalltalk getPrompt: '>	'.
 		string isNil
 			ifTrue: [ notdone <- false ]
