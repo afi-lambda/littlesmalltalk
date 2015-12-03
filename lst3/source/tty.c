@@ -29,19 +29,6 @@ noreturn sysWarn(char *s1, char *s2)
     ignore fprintf(stderr, "%s\n%s\n", s1, s2);
 }
 
-void compilWarn(char *selector, char *str1, char *str2)
-{
-    ignore fprintf(stderr, "compiler warning: Method %s : %s %s\n",
-		   selector, str1, str2);
-}
-
-void compilError(char *selector, char *str1, char *str2)
-{
-    ignore fprintf(stderr, "compiler error: Method %s : %s %s\n",
-		   selector, str1, str2);
-    parseok = false;
-}
-
 noreturn dspMethod(char *cp, char *mp)
 {
     /*ignore fprintf(stderr,"%s %s\n", cp, mp); */

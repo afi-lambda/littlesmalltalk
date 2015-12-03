@@ -33,8 +33,8 @@ void visit(register object x);
 
 
 boolean debugging = false;
-object sysobj;			/* temporary used to avoid rereference in macros */
-object intobj;
+//object sysobj;			/* temporary used to avoid rereference in macros */
+//object intobj;
 
 object symbols;			/* table of all symbols created */
 

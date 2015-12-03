@@ -24,7 +24,7 @@ void flushCache(object messageToSend, object class);
 object hashEachElement(object dict, register int hash, int (*fun) ());
 noreturn sysWarn(char *s1, char *s2);
 
-object trueobj, falseobj;
+extern object trueobj, falseobj;
 boolean watching = 0;
 extern object primitive(INT X OBJP);
 

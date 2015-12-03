@@ -73,6 +73,18 @@ void compilError(char *selector, char *str1, char *str2);
 void parsePrimitive();
 void sysDecr(object z);
 
+void compilWarn(char *selector, char *str1, char *str2)
+{
+    ignore fprintf(stderr, "compiler warning: Method %s : %s %s\n",
+		   selector, str1, str2);
+}
+
+void compilError(char *selector, char *str1, char *str2)
+{
+    ignore fprintf(stderr, "compiler error: Method %s : %s %s\n",
+		   selector, str1, str2);
+    parseok = false;
+}
 
 void setInstanceVariables(aClass)
 object aClass;

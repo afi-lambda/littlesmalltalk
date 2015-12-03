@@ -88,11 +88,11 @@ extern object allocStr(STR);
 	until names.h
 */
 
-extern object intobj;
+//extern object intobj;
 
 #define isInteger(x) ((x) & 0x8001)
-#define newInteger(x) ( (intobj = x)<0 ? intobj : (intobj<<1)+1 )
-#define intValue(x) ( (intobj = x)<0 ? intobj : (intobj>>1) )
+#define newInteger(x) ( (x)<0 ? x : (x<<1)+1 )
+#define intValue(x) ( (x)<0 ? x : (x>>1) )
 
 /*
 	There are four routines used to access fields within an object.
@@ -120,8 +120,8 @@ extern int f_i;
 #define setClass(x,y) incr(classField(x)=y)
 #define sizeField(x) objectTable[x>>1].size
 #define sysMemPtr(x) objectTable[x>>1].memory
-extern object sysobj;
-#define memoryPtr(x) (isInteger(sysobj = x)?(object *) 0:sysMemPtr(sysobj))
+//extern object sysobj;
+#define memoryPtr(x) (isInteger(x)?(object *) 0:sysMemPtr(x))
 #define bytePtr(x) ((byte *) memoryPtr(x))
 #define charPtr(x) ((char *) memoryPtr(x))
 

@@ -166,6 +166,7 @@ char *binStrs[] = { "+", "-", "<", ">", "<=", ">=", "=", "~=", "*",
     0
 };
 
+object trueobj, falseobj;
 /* initialize common symbols used by the parser and interpreter */
 noreturn initCommonSymbols()
 {
