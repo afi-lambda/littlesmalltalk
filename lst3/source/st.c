@@ -28,7 +28,7 @@ int main(int argc, char **argv)
     strcpy(buffer, "systemImage");
     p = buffer;
 
-    if (argc != 1)
+    if (argc > 1)
 	p = argv[1];
 
     fp = fopen(p, "r");
