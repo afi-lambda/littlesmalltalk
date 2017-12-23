@@ -321,7 +321,7 @@ int maxsteps;
 
             if (watching) {
                 object selector = basicAt(method, messageInMethod);
-                fprintf(stderr, "%d   %s\n", processStackTop(), charPtr(selector));
+                fprintf(stderr, "%ld   %s\n", processStackTop(), charPtr(selector));
             }
 
 	    if (watching && (basicAt(method, watchInMethod) != nilobj)) {
