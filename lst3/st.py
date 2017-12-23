@@ -1,32 +1,32 @@
 from __future__ import print_function
 import cffi
 
-ffi = cffi.FFI()
-ffi.set_source('lst3_def', None)
-ffi.cdef("void initMemoryManager();")
-ffi.cdef("FILE *fopen(char*, char*);")
-ffi.cdef("size_t fread(void*, size_t, size_t, FILE*);")
-ffi.cdef("void imageRead(FILE*);")
-ffi.cdef("void initCommonSymbols();")
-ffi.cdef("typedef int object;")
-ffi.cdef("object symbols;")
-ffi.cdef("object nameTableLookup(object, char*);")
-ffi.cdef("typedef int boolean;")
-ffi.cdef("boolean execute(object, int);")
-ffi.cdef("struct dummy {int di; object cl; short ds;} dummyObject;")
-ffi.cdef("""struct objectStruct {
+ffibuilder = cffi.FFI()
+ffibuilder.set_source('lst3_def', None)
+ffibuilder.cdef("void initMemoryManager();")
+ffibuilder.cdef("FILE *fopen(char*, char*);")
+ffibuilder.cdef("size_t fread(void*, size_t, size_t, FILE*);")
+ffibuilder.cdef("void imageRead(FILE*);")
+ffibuilder.cdef("void initCommonSymbols();")
+ffibuilder.cdef("typedef int object;")
+ffibuilder.cdef("object symbols;")
+ffibuilder.cdef("object nameTableLookup(object, char*);")
+ffibuilder.cdef("typedef int boolean;")
+ffibuilder.cdef("boolean execute(object, int);")
+ffibuilder.cdef("struct dummy {int di; object cl; short ds;} dummyObject;")
+ffibuilder.cdef("""struct objectStruct {
     object cl;
     short referenceCount;
     short size;
     object *memory;};""")
-ffi.cdef("struct objectStruct objectTable[6500];")
-ffi.cdef("object *mBlockAlloc(int);")
-ffi.cdef("void visit(object);")
-ffi.cdef("void setFreeLists();")
-ffi.cdef("")
-ffi.cdef("")
-ffi.cdef("")
-ffi.compile()
+ffibuilder.cdef("struct objectStruct objectTable[6500];")
+ffibuilder.cdef("object *mBlockAlloc(int);")
+ffibuilder.cdef("void visit(object);")
+ffibuilder.cdef("void setFreeLists();")
+ffibuilder.cdef("")
+ffibuilder.cdef("")
+ffibuilder.cdef("")
+ffibuilder.compile()
 
 from lst3_def import ffi
 
@@ -48,7 +48,7 @@ def image_read(fp):
         lst3.objectTable[index].size = read_size
         size = read_size
         if size < 0:
-            size = (-size + 1) / 2
+            size = (-size + 1) // 2
         if size > 0:
             addressof_memory = lst3.mBlockAlloc(size)
             lst3.objectTable[index].memory = addressof_memory
@@ -60,10 +60,10 @@ def image_read(fp):
 
 lst3 = ffi.dlopen("./lst3")
 lst3.initMemoryManager()
-fp = lst3.fopen("systemImage", "r")
+fp = lst3.fopen(b"systemImage", b"r")
 image_read(fp)
 lst3.initCommonSymbols()
-firstProcess = lst3.nameTableLookup(lst3.symbols, "systemProcess");
+firstProcess = lst3.nameTableLookup(lst3.symbols, b"systemProcess");
 
 while True:
     lst3.execute(firstProcess, 15000)
