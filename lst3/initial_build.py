@@ -9,6 +9,9 @@ ffibuilder.set_source("_initial", """
     static void incr_w(object o) { incr(o); }
     static void basicAtPut_w(object x, int i,object y) { basicAtPut(x, i, y); }
     static void setClass_w(object o, object c) { setClass(o, c); }
+    void setInstanceVariables(object);
+    int parse(object, char*, int);
+    object newInteger_w(int i) { return newInteger(i); }
     """,
     libraries=['lst3'],
     library_dirs=['.'])   
@@ -29,6 +32,15 @@ ffibuilder.cdef("""     // lst3 declaration
     object trueobj;
     object falseobj;
     void initCommonSymbols(void);
+    object newMethod(void);
+    void setInstanceVariables(object);
+    int parse(object, char*, int);
+    #define processSize ...
+    #define stackInProcess ...
+    #define stackTopInProcess ...
+    #define linkPtrInProcess ...
+    object newInteger_w(int);
+    int execute(object, int);
 """)
 
 if __name__ == "__main__":
