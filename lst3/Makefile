@@ -8,7 +8,7 @@ default:
 	mv bootstrap/systemImage .
 
 clean:
-	rm -f source/*.o lst3 buildImage systemImage
+	rm -f source/*.o liblst3.so buildImage systemImage
 	rm -f `find . | grep \~`
 
 install:
