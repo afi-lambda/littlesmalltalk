@@ -23,7 +23,9 @@ ffibuilder.cdef("object *mBlockAlloc(int);")
 ffibuilder.cdef("void visit(object);")
 ffibuilder.cdef("void setFreeLists();")
 ffibuilder.cdef("")
-ffibuilder.cdef("")
+ffibuilder.cdef("object allocObject(int);")
+ffibuilder.cdef("object newSymbol(char*);")
+ffibuilder.cdef("object newClass(char*);")
 ffibuilder.cdef("")
 
 if __name__ == "__main__":
