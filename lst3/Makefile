@@ -9,6 +9,7 @@ default:
 
 clean:
 	rm -f source/*.o liblst3.so buildImage systemImage
+	rm -rf *.pyc __pycache__ _initial.* lst3_def.py
 	rm -f `find . | grep \~`
 
 install:
