@@ -63,6 +63,6 @@ if __name__ == "__main__":
 	lib.initCommonSymbols();
 	bootstrap_files = glob("bootstrap/*.st")
 	for each in bootstrap_files:
-		method = "x <120 1 '{}' 'r'>. <123 1>. <121 1>".format(each)
+		method = "x <120 1 '{}' 'r'>. <123 1>. <121 1>".format(each).encode('ascii')
 		goDoIt(method)
-	goDoIt("x nil initialize")
+	goDoIt("x nil initialize".encode('ascii'))
