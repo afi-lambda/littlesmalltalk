@@ -31,7 +31,7 @@ def image_read(fp):
     lst3.visit(lst3.symbols)
     lst3.setFreeLists()
 
-lst3 = ffi.dlopen("./lst3")
+lst3 = ffi.dlopen("./liblst3.so")
 lst3.initMemoryManager()
 fp = lst3.fopen(b"systemImage", b"r")
 image_read(fp)
