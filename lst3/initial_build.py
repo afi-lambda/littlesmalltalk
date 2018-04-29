@@ -12,6 +12,7 @@ ffibuilder.set_source("_initial", """
     void setInstanceVariables(object);
     int parse(object, char*, int);
     object newInteger_w(int i) { return newInteger(i); }
+    void fileIn(FILE*, int);
     """,
     libraries=['lst3'],
     library_dirs=['.'])   
@@ -41,6 +42,9 @@ ffibuilder.cdef("""     // lst3 declaration
     #define linkPtrInProcess ...
     object newInteger_w(int);
     int execute(object, int);
+    FILE *fopen(char*, char*);
+    int fclose(FILE*);
+    void fileIn(FILE*, int);
 """)
 
 if __name__ == "__main__":

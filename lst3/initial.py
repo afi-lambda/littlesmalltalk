@@ -1,6 +1,7 @@
 from _initial import ffi, lib
 from glob import glob
 
+
 def makeInitialImage():
     # first create the table, without class links
     lib.symbols = lib.allocObject(1)
@@ -22,13 +23,14 @@ def makeInitialImage():
     lib.setClass_w(lib.symbols, lib.newClass(b"Dictionary"))
     lib.setClass_w(lib.nilobj, lib.newClass(b"UndefinedObject"))
     lib.newClass(b"String")
-    lib.nameTableInsert(lib.symbols, lib.strHash(b"symbols"), 
-    				    lib.newSymbol(b"symbols"), lib.symbols)
+    lib.nameTableInsert(lib.symbols, lib.strHash(b"symbols"),
+                        lib.newSymbol(b"symbols"), lib.symbols)
     # finally at least make true and false to be distinct */
     lib.trueobj = lib.newSymbol(b"true")
     lib.nameTableInsert(lib.symbols, lib.strHash(b"true"), lib.trueobj, lib.trueobj)
     lib.falseobj = lib.newSymbol(b"false")
     lib.nameTableInsert(lib.symbols, lib.strHash(b"false"), lib.falseobj, lib.falseobj)
+
 
 def goDoIt(method_text):
     print(method_text)
@@ -58,11 +60,12 @@ def goDoIt(method_text):
         print("...")
 
 if __name__ == "__main__":
-	lib.initMemoryManager()
-	makeInitialImage()
-	lib.initCommonSymbols();
-	bootstrap_files = glob("bootstrap/*.st")
-	for each in bootstrap_files:
-		method = "x <120 1 '{}' 'r'>. <123 1>. <121 1>".format(each).encode('ascii')
-		goDoIt(method)
-	goDoIt("x nil initialize".encode('ascii'))
+    lib.initMemoryManager()
+    makeInitialImage()
+    lib.initCommonSymbols()
+    bootstrap_files = glob("bootstrap/*.st")
+    for each in bootstrap_files:
+        fp = lib.fopen(each.encode('ascii'), b'r')
+        lib.fileIn(fp, True)
+        lib.fclose(fp)
+    goDoIt("x nil initialize".encode('ascii'))
